@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Button } from './components/ui/button';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -68,6 +69,8 @@ function App() {
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
+      <Button variant="outline">Button</Button>
+
     </div>
   );
 }
