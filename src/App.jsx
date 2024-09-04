@@ -17,6 +17,9 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+
     if (!file || !selectedBand) {
       setError('Please select a file and enter a band name.');
       return;
@@ -37,27 +40,31 @@ function App() {
       link.setAttribute('download', `${selectedBand}_COG.tif`);
       document.body.appendChild(link);
       link.click();
-
-      setSuccess('File processed successfully!');
-      setError('');
-    } catch (err) {
+      link.remove();
+      setSuccess('File processed and downloaded successfully.');
+    } catch (error) {
       setError('An error occurred while processing the file.');
-      setSuccess('');
     }
   };
 
   return (
-    <div className="App">
-      <h1>Upload HDF5 File and Specify Band Name</h1>
+    <div>
+      <h1>HDF5 File Processor</h1>
       <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} /><br /><br />
-        <input
-          type="text"
-          value={selectedBand}
-          onChange={handleBandChange}
-          placeholder="Enter Band Name"
-        /><br /><br />
-        <button type="submit">Upload</button>
+        <div>
+          <label htmlFor="file">Select file:</label>
+          <input type="file" id="file" onChange={handleFileChange} />
+        </div>
+        <div>
+          <label htmlFor="selectedBand">Enter band name:</label>
+          <input
+            type="text"
+            id="selectedBand"
+            value={selectedBand}
+            onChange={handleBandChange}
+          />
+        </div>
+        <button type="submit">Submit</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
