@@ -26,16 +26,13 @@ def process_hdf5(file_path, selected_band=None):
         geotransform = (0, 1, 0, 0, 0, -1)
         print(f"Debug: Geotransform = {geotransform}")  # Debug print
         
-<<<<<<< HEAD
-=======
+
         top_left_x = geotransform[0]
         top_left_y = geotransform[3]
         pixel_width = geotransform[1]
         pixel_height = geotransform[5]
         pixel_size = np.sqrt(pixel_width**2 + pixel_height**2)
-        print(f"Debug: Calculated pixel_size = {pixel_size}")  # Debug print
-        
->>>>>>> 511d45b874d11548be3b6a1b4c971efc2a606089
+        print(f"Debug: Calculated pixel_size = {pixel_size}") 
         output_tiff = os.path.normpath(f"/tmp/{selected_band}.tif")
         cog_output_tiff = os.path.normpath(f"/tmp/{selected_band}_COG.tif")
 
@@ -53,11 +50,8 @@ def process_hdf5(file_path, selected_band=None):
                                    count=1, dtype=band_data.dtype, crs='+proj=latlong', 
                                    transform=from_origin(top_left_x, top_left_y, pixel_size, pixel_size)) as dst:
                     dst.write(band_data, 1)
-<<<<<<< HEAD
                 cog_output_tiff = os.path.normpath(f"/tmp/{selected_band}band{i}_COG.tif")
-=======
                 cog_band_output_tiff = os.path.normpath(f"/tmp/{selected_band}_band_{i}_COG.tif")
->>>>>>> 511d45b874d11548be3b6a1b4c971efc2a606089
                 result = subprocess.run([
                     'gdal_translate',
                     '-of', 'COG',
@@ -96,8 +90,5 @@ if __name__ == "_main_":
     selected_band = args.band_name
 
     cog_output_tiff = process_hdf5(file_path, selected_band)
-<<<<<<< HEAD
     print(f"COG output file: {cog_output_tiff}")
-=======
     print(f"COG output file: {cog_output_tiff}")
->>>>>>> 511d45b874d11548be3b6a1b4c971efc2a606089
